@@ -1,0 +1,16 @@
+{% extends 'listings/base.html' %}
+
+{%block details%}
+    <h1>Détails du groupe</h1>
+    <h2>{{ band.name }}</h2>
+
+    <ul>
+        <li>Genre : {{ band.genre }}</li>
+        <li>Année de formation : {{ band.year_formed }}</li>
+        <li>Actif : {{ band.active | yesno }}</li>
+        <li>{{ band.official_homepage }}</li>
+    </ul>
+
+    <p>{{ band.biography }}</p>
+    <h2><a href="{% url 'band_list'%}">Retour aux groupes</a></h2>
+{% endblock %}

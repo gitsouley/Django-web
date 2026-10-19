@@ -20,6 +20,11 @@ from listings import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('hello/',views.hello),
+    path('bands/',views.band_list, name='band_list'),
+    path('bands/create/',views.band_create, name='band_create'),
+    path('bands/<int:id>/',views.band_details, name='band_detail'),
+    path('bands/<int:id>/change/',views.update_band, name='band_update'),
+    path('bands/<int:id>/delete/',views.delete_band, name='band_delete'),
     path('about-us/', views.about),
+    path('accueil/', views.vue),
 ]

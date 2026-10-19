@@ -1,0 +1,109 @@
+Deja pour avoir un projet diango on tape la commande pip install diango.
+pour garder les dependances de notre projet la commande pip freeze requirements.txt permet de sauvegarder les informations de nos dependances.
+on peut auusi avoir le struture de demarrage ou code de demarrrage avec la commande django-admin startproject nomDossier
+
+manage.py est conçu pour fonctionner spécifiquement avec notre projet, alors que django-admin est une version plus générique de l'utilitaire.
+
+Le fichier manage.py est un script Python ; nous allons donc ajouter le préfixe python à chaque fois que nous l'exécuterons, par exemple :python3 manage.py runserver.
+les migrations représentent un moyen de configurer la base de données de notre application.
+la commande python3 manage.py migrate permet de créer notre base de données.
+
+Django nous encourage à compartimenter notre projet entier Django en applications
+la commande python3 manage.py startapp nomApplication
+toute aplication créé doit etre ajouté au setting.py de la racine du projet (a la fin se charge dernierement).
+
+
+Une vue a pour fonction de répondre à la visite d'un utilisateur sur le site en renvoyant une page que l’utilisateur peut voir.
+
+Ou en termes de Python :
+
+Une vue est une fonction qui accepte un objet HttpRequest comme paramètre et retourne un objetHttpResponse  .
+
+Un modèle d'URL, c’est la façon dont nous indiquons à Django qu'il doit être à l'écoute d'une requête pour une URL donnée, puis appeler une vue spécifique pour générer une page.
+
+Les vues sont des fonctions Python qui doivent remplir les critères suivants :
+
+Le premier paramètre de la fonction est une variable contenant l'objetHttpRequest, et par convention nous le nommons toujours request. Cet objet contient certains attributs utiles liés à la demande. Nous les examinerons plus avant au chapitre Récupérez les données de l'utilisateur avec Django Forms.
+
+La valeur de retour de la fonction est toujours un objetHttpResponse. Ce qu'il contient dépend du type d'application : dans notre application, nous allons placer du HTML dans nos réponses.
+
+classe = modèle : définit les caractéristiques que nous voulons stocker à propos d'une entité particulière.
+
+Comme nous l'avons dit, une des caractéristiques d'un modèle est qu'il est capable de stocker ses données dans une base de données. Nous avons créé notre base de données dans le chapitre sur la configuration. Mais cette base de données ne sait encore rien de notre modèle de bande. Et c'est là que les migrations entrent en jeu.
+
+Nous utilisons une sous-commande (python manage.py makemigrations)de l'utilitaire de ligne de commande qui va générer des instructions pour construire la table. Et ensuite, nous utilisons une autre sous-commande (python3 manage.py migrate) pour exécuter ces instructions. Ces instructions sont appelées une migration.
+
+Une migration est un ensemble d'instructions permettant de passer le schéma de votre base de données d'un état à un autre. Il est important de noter que ces instructions peuvent être exécutées automatiquement, comme un code.
+
+
+En programmation, un design pattern (patron de conception) est un style ou une technique qui représente la meilleure pratique et conduit à de bons résultats. À l'inverse, un anti-pattern représente une mauvaise pratique, quelque chose que nous devons éviter.
+
+Voici quelques éléments à prendre en compte :
+
+Les boucles et autres instructions logiques sont entourées de crochets et de signes de pourcentage ({% ... %}). Il s'agit de balises de gabarits.
+
+Une instructionfor est construite en utilisant une syntaxe similaire à celle de Python, mais sans les deux-points de fin (: ).
+
+Nous avons tendance à utiliser le format conventionnel de Python for singulier in pluriel dans les instructions for.
+
+Une balise de gabarit for doit posséder une balise de fermeture endfor plus loin dans le gabarit.
+
+L'espace entre les balises for et endfor peut contenir du texte, du HTML et même des variables de gabarits Django.
+
+
+
+Parfois, lorsque nous injectons une variable dans notre gabarit, nous voudrions appliquer un certain formatage. Les filtres de gabarits peuvent nous y aider. Imaginons que nous voulions afficher les noms de nos groupes dans une case différente. Nous pourrions utiliser le filtre lower (minuscules) ou upper (majuscules)
+
+Django est livré avec différents types de champs qui correspondent à différents types de données, comme CharField ou IntegerField . Il existe aussi des champs plus spécifiques qui vont contraindre l'entrée, comme URLField .
+
+Nous pouvons définir des contraintes et des règles pour les champs en leur attribuant des options, comme max_length , null et choices .
+
+Nous pouvons affiner davantage les contraintes sur les champs en spécifiant des validateurs sur les champs en utilisant l'option validators .
+
+Lorsque nous ajoutons de nouveaux champs à un modèle, nous devons effectuer une migration pour ajouter de nouvelles colonnes à la base de données, avant de pouvoir commencer à les utiliser.
+
+Si nous ajoutons des champs non nuls à un modèle, nous serons invités à leur fournir une valeur par défaut initiale lors de la migration.
+
+yeluos@yeluos:~/Documents/FORMATION/Django/merchex$ python3 manage.py createsuperuser
+Username (leave blank to use 'yeluos'): 
+Email address: 
+Password: 
+Password (again): 
+Superuser created successfully.
+
+
+Nous avons modifié la façon dont un Band est représenté sous forme de chaîne de caractères en utilisant la méthode __str__.
+
+Nous avons créé une classe appelée BandAdmin, héritant de admin.ModelAdmin. Les classes ModelAdmin permettent de configurer la manière dont les objets du modèle sont affichés dans l'administration.
+
+Nous avons donné à BandAdmin un attribut de classe appelé list_display et nous l'avons défini comme le n-uplet (tuple) ('name', 'year_formed', 'genre'). Cela signifie que nous pouvons voir tous ces champs lorsque nous visualisons les groupes dans l'administration.
+
+Enfin, nous avons mis à jour l'appel à admin.site.register afin de lui passer la nouvelle classe BandAdmin. Cette dernière étape est nécessaire pour raccorder le tout.
+
+
+
+Identifiez ensuite la migration qui doit être annulée, dans notre cas il s'agit de 0006_band_like_new. Ensuite, récupérez le nom de la migration précédente vers celle-ci : 0005_listing_band. Vous devrez également noter le nom de l'application, qui est ici listings.
+
+Maintenant, pour annuler la migration, utilisez la commande python manage.py migrate en spécifiant le nom de l'application et la migration précédente. Cela ramènera toutes les migrations ultérieures à celle que nous avons ciblée.
+
+
+Pour créer un formulaire dans Django, nous commençons par définir le formulaire comme une classe dans forms.py. C'est ici que nous définissons les différents types de champs du formulaire (CharField, EmailField, etc.), comme nous le faisons pour un modèle.
+
+Nous créons une instance du formulaire dans notre vue et nous la passons au gabarit. Lorsque nous générons le formulaire avec {{ form }}, Django génère une grande partie du balisage HTML du formulaire pour nous.
+
+Dans la vue, nous gérons deux scénarios : une requête GET qui affiche un nouveau formulaire vide et une requête POST qui valide la saisie de l'utilisateur et exécute l'action du formulaire.
+
+c'est le moment d'expliquer ce qu'est le {% csrf_token %} dans tous nos formulaires. CSRF est l'abréviation de Cross Site Request Forgery. Il s'agit d'une méthode visant à inciter les utilisateurs à effectuer des opérations en créant (ou en « forgeant ») des requêtes. Le csrf_token empêche cela, en générant un jeton (token) aléatoire pour chaque requête. Si une requête POST ultérieure n'inclut pas ce jeton exact, Django sait que la requête est sans doute une contrefaçon et lève une erreur pour arrêter l'exécution.
+
+
+
+Lorsque nous construisons un formulaire pour créer de nouveaux objets à partir d'un modèle, nous utilisons un ModelForm, cela permet au modèle de définir automatiquement les champs du formulaire.
+
+Nous utilisons un ModelForm de la même manière qu'un Form : nous créons une instance du formulaire dans notre vue et nous la passons au gabarit. Nous traitons ensuite les demandes GET et POST dans la vue.
+
+Nous pouvons personnaliser un ModelForm en excluant certains des champs du modèle, en n'affichant qu'un sous-ensemble de champs dans le formulaire.
+
+
+Lorsqu'il s'agit de mettre à jour des objets, vous pouvez souvent réutiliser le ModelForm que vous utilisez lors de la création des objets.
+
+La grande différence, c’est que lorsque vous instanciez le formulaire, vous passez l’objet que vous voulez pour effectuer une mise à jour avec le mot clé instance, par exemple :  form = BandForm(instance=band).

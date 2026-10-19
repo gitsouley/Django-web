@@ -1,0 +1,11 @@
+{% extends 'listings/base.html' %}
+
+{% block about %}
+	<h1>About Us</h1>
+	<p>Nous vous contacterons</p>
+	<form action="" method="POST" novalidate>
+		{% csrf_token %}
+		{{ contact.as_p }}
+		<button type="submit">Envoyer</button>
+	</form>
+{% endblock %}

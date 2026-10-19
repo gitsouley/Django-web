@@ -1,0 +1,10 @@
+{% extends 'listings/base.html' %}
+
+{% block band_create %}
+    <h1>Creer un nouveau groupe</h1>
+    <form method="post" action="" novalidate>
+        {% csrf_token %}
+        {{ bandCreate.as_p }}
+        <button type="submit">Creer groupe</button>
+    </form>
+{% endblock %}

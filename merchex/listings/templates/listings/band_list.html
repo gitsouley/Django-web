@@ -1,0 +1,22 @@
+{% extends 'listings/base.html' %}
+
+{% block band_list %}
+			<h1>Mes groupes préférés sont :</h1>
+		<ul>
+			{% for band in bands %}
+			<li><a href="{% url 'band_detail' band.id %}">{{band.name | upper }}</a></li>
+			{% endfor %}
+		</ul>
+		<p>J'ai {{ bands|length }} groupes préférés.</p>
+		<p>
+			J'ai 
+			{% if bands|length < 5 %}
+				peu de
+			{% elif bands|length < 10 %}
+				quelques
+			{% else %}
+				beaucoup de
+			{% endif %}
+				groupes préférés.
+		</p>
+{% endblock %}
